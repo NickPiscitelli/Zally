@@ -23,6 +23,7 @@
     "gulp": "^3.9.1",
     "react": "16.0.0",
     "react-native": "0.50.3",
+    "react-native-collapsible": "^0.9.0",
     "react-native-config": "^0.11.2",
     "react-native-elements": "^0.18.5",
     "react-native-settings-list": "^1.8.0",

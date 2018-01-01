@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, FlatList, Text, View, Button } from 'react-native';
+import { StyleSheet, FlatList, Text, View, Button, Image, ScrollView } from 'react-native';
 import ZText from './Components/ZText.js';
 import Coin from './Components/Coin.js';
+import SideNav from './Components/Sidenav.js';
 import Config from 'react-native-config';
+import Collapsible from 'react-native-collapsible';
 
 import {
-  StackNavigator,
+  DrawerNavigator, DrawerItems, SafeAreaView
 } from 'react-navigation';
 
 var coins = [
@@ -27,45 +29,77 @@ var coins = [
   {key: 'XLM'}
 ];
 
-const PortfolioScreen = ({ navigation }) => (
-  <View style={styles.container}>
-    <View style={styles.container}>
-      <View style={[styles.row, styles.total]}>
-        <ZText style={{fontSize: 25, fontWeight: 'bold'}}>Total: $10</ZText>
-        <ZText>Zally!</ZText>
-        <Button
-          onPress={() => navigation.navigate('Settings')}
-          title="Go to settings"
-        />
-      </View>
-      <FlatList
-        style={{flex: 1, alignSelf: 'stretch'}}
-        data={coins}
-        renderItem={({item}) => <Coin style={{alignSelf: 'stretch' }} symbol={item.key} />}
+class PortfolioScreen extends React.Component {
+  static navigationOptions = {
+    drawerLabel: 'My Portfolio',
+    drawerIcon: ({ tintColor }) => (
+      <Image
+        style={[styles.icon, {tintColor: tintColor}]}
       />
-    </View>
-  </View>
-);
+    ),
+  };
 
-const SettingsScreen = () => (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Details Screen</Text>
-  </View>
-);
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.container}>
+          <View style={[styles.row, styles.total]}>
+            <ZText style={{fontSize: 25, fontWeight: 'bold'}}>Total: $10</ZText>
+            <ZText>Zally!</ZText>
+            <Button
+              onPress={() => this.props.navigation.navigate('DrawerOpen')}
+              title="OPen Drawer"
+            />
+            <Button
+              onPress={() => this.props.navigation.navigate('Settings')}
+              title="Go to settings"
+            />
+          </View>
+          <FlatList
+            style={{flex: 1, alignSelf: 'stretch'}}
+            data={coins}
+            renderItem={({item}) => <Coin style={{alignSelf: 'stretch' }} symbol={item.key} />}
+          />
+        </View>
+      </View>
+      
+    );
+  }
+}
 
-const RootNavigator = StackNavigator({
-  Home: {
+
+class SettingsScreen extends React.Component {
+  static navigationOptions = {
+    drawerLabel: 'Settings',
+    drawerIcon: ({ tintColor }) => (
+      <Image
+        style={[styles.icon, {tintColor: tintColor}]}
+      />
+    ),
+  };
+
+  render() {
+    return (
+      <Button
+        onPress={() => this.props.navigation.goBack()}
+        title="Go back home"
+      />
+    );
+  }
+}
+
+const RootNavigator = DrawerNavigator({
+  Portfolio: {
     screen: PortfolioScreen,
-    navigationOptions: {
-      headerTitle: 'My Portfolio',
-    },
   },
-  Details: {
+  Settings: {
     screen: SettingsScreen,
-    navigationOptions: {
-      headerTitle: 'Settings',
-    },
   },
+},{
+  contentComponent: SideNav,
+  drawerOpenRoute: 'DrawerOpen',
+  drawerCloseRoute: 'DrawerClose',
+  drawerToggleRoute: 'DrawerToggle'
 });
 
 const styles = StyleSheet.create({

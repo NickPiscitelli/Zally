@@ -4,13 +4,14 @@ import ZText from './ZText.js';
 import ExchangeAPI from './ExchangeAPI.js';
 
 class Coin extends Component {
+  
   constructor(props){
       super(props);
       //console.error(this.props.symbol)
-      var API = new ExchangeAPI();
-      var coin = API.fetchCoin(this.props.symbol);
-      
+      //var API = new ExchangeAPI();
+      //var coin = API.fetchCoin(this.props.symbol);
   }
+
   render() {
       return <View style={coinStyles.coinRow}>
             <View style={[coinStyles.stack, coinStyles.coinImage]}>
@@ -43,7 +44,7 @@ const coinStyles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       borderWidth: 0.5,
-      borderColor: 'green',
+      borderColor: 'red',
       padding: 5
     },
     stack: {
