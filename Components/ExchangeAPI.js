@@ -6,7 +6,9 @@ class ExchangeAPI {
     .then((responseData) =>
     {
       //set your data here
-       console.warn(responseData);
+       console.warn(responseData.map((ex) => {
+         ex.exchange_id
+       }));
     })
   }
   fetchCoin(symbol) {

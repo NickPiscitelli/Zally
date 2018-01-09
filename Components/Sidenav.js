@@ -3,6 +3,10 @@ import {NavigationActions} from 'react-navigation';
 import {ScrollView, Text, View, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 
+import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Entypo';
+import EvilIcon from 'react-native-vector-icons/EvilIcons';
+
 class SideMenu extends Component {
 
   constructor(props){
@@ -10,7 +14,7 @@ class SideMenu extends Component {
   }
 
   state = {
-      portfolioCollapsed: true
+      portfolioCollapsed: true 
   };
 
   navigateToScreen = (route) => () => {
@@ -27,17 +31,17 @@ class SideMenu extends Component {
           <Text style={styles.headerText}>Menu</Text>
           <TouchableOpacity
             onPress={() => {this.props.navigation.navigate('DrawerClose')}}>
-            <Text style={styles.close}>Close</Text>
+            <EvilIcon name="close" size={32} color={'white'} />
           </TouchableOpacity>
         </View>
-        <ScrollView>
+        <ScrollView style={styles.scrollContainer}>
           <View>
             
-            <View style={styles.container}>
+            <View style={styles.navSectionStyle}>
                 <View style={styles.collapseHeader}>
-                    <TouchableOpacity onPress={() => {this.setState({portfolioCollapsed: !this.state.portfolioCollapsed})}}>
-                        <View style={styles.collapseText}><Text>Portfolios</Text></View>
-                        <View style={styles.collapseIcon}><Text>Arrow</Text></View>
+                    <TouchableOpacity style={styles.collapseHeader} onPress={() => {this.setState({portfolioCollapsed: !this.state.portfolioCollapsed})}}>
+                        <Text style={styles.navItemStyle}>Portfolios</Text>
+                        <Icon style={{fontWeight: 'normal'}} name="plus" size={24} color={'white'} />
                     </TouchableOpacity>
                 </View>
                 <Collapsible collapsed={this.state.portfolioCollapsed}>
@@ -57,9 +61,6 @@ class SideMenu extends Component {
             </View>
           </View>
         </ScrollView>
-        <View style={styles.footerContainer}>
-          <Text>This is my fixed footer</Text>
-        </View>
       </SafeAreaView>
     );
   }
@@ -68,7 +69,10 @@ class SideMenu extends Component {
 const styles = StyleSheet.create({
     navContain:{
         paddingTop: 20,
-        backgroundColor: '#222222'
+        backgroundColor: '#222222',
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'stretch'
     },
     container: {
       paddingTop: 20,
@@ -78,7 +82,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.5,
         borderBottomColor: '#ccc',
         justifyContent: 'space-between',
-        flex: 1,
+        height: 50,
         flexDirection: 'row',
         padding: 7
     },
@@ -90,11 +94,20 @@ const styles = StyleSheet.create({
         paddingTop: 7,
         paddingBottom: 7
     },
+    scrollContainer: {
+        alignSelf: 'stretch',
+        flex: 1,
+    },
     navItemStyle: {
-      padding: 10
+      padding: 10,
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: '#ffffff'
     },
     navSectionStyle: {
-      backgroundColor: 'lightgrey'
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#ccc',
+        flex: 1
     },
     sectionHeadingStyle: {
       paddingVertical: 10,
@@ -116,7 +129,8 @@ const styles = StyleSheet.create({
         paddingRight: 7
     },
     close: {
-        color: 'white'
+        color: 'white',
+        backgroundColor: 'white'
     }
   });
 

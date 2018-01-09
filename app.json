@@ -1,5 +1,9 @@
 {
   "expo": {
-    "sdkVersion": "23.0.0"
+    "sdkVersion": "23.0.0",
+    "extra": {
+	"endpoint": "https://rest.coinapi.io/",
+	"apiKey": "27B3804E-2170-4445-8190-AE57F2CD74B0"
+    }
   }
 }
